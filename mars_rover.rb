@@ -42,6 +42,11 @@ def coord_crop(coord_str)
 	coord_array.collect! {|x| x.to_i }
 end
 
+def direction_crop(direction_str)
+	direction_array = direction_str.downcase.split('')
+	direction_array.keep_if {|d| d == "r" || d == "l" || d == "m"}
+end
+
 #prompt user to enter coordinates, then pass string to the coord_crop method
 puts "type current coordinates for Rover"
 coord_edited = coord_crop(gets.chomp)
@@ -56,9 +61,10 @@ end
 x = coord_edited[0]
 y = coord_edited[1]
 
-#puts "type instructions for Rover"
-# direction = gets.chomp.downcase.split('')
-# #p direction
+#prompt user for rover
+puts "type instructions for Rover"
+direction_crop(gets.chomp)
+
 
 #create a new instance of the Rover class and pass it the x and y coordinates
-Rover.new(x, y)
+#Rover.new(x, y, direction)
