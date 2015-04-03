@@ -1,30 +1,28 @@
 class Rover
-	def initialize(x, y)
+	def initialize(x, y, direction)
 		@x = x
 		@y = y
-	#@direction = direction
-	puts @x
-	puts @y
+		@direction = direction
 	end
 
-# 	# def read_instructions
-# 	# 	#tell rover to move or turn - delegates to move and turn methods
-# 	# 	@direction.each do |x|
-# 	# 		move if x == "m"
-# 	# 		turn if x == "l" || x =="r"
-# 	# 	end
-# 	# end
+	def read_instructions
+		#tell rover to move or turn - delegates to move and turn methods
+		@direction.each do |x|
+			puts "m" if x == "m"
+			puts "l or r" if x == "l" || x =="r"
+		end
+	end
 
-# 	# def move
-# 	# 	#when an "m" is passed, this method affects the position of the rover, then updates co-orinates.
-# 	# 	puts "move method called"
+	def move
+		#when an "m" is passed, this method affects the position of the rover, then updates co-orinates.
+		puts "move method called"
 
-# 	# end
+	end
 
-# 	# def turn
-# 	# 	#turns rover when a L or R is passed. Checks current position (direction), turns rover once, then updates the direction parameter.
-# 	# 	puts "turn method called"
-# 	# end
+	def turn
+		#turns rover when a L or R is passed. Checks current position (direction), turns rover once, then updates the direction parameter.
+		puts "turn method called"
+	end
 end
 
 
@@ -42,6 +40,7 @@ def coord_crop(coord_str)
 	coord_array.collect! {|x| x.to_i }
 end
 
+#only keep characters in passed string if they are "r", "l" or "m"
 def direction_crop(direction_str)
 	direction_array = direction_str.downcase.split('')
 	direction_array.keep_if {|d| d == "r" || d == "l" || d == "m"}
@@ -63,8 +62,9 @@ y = coord_edited[1]
 
 #prompt user for rover
 puts "type instructions for Rover"
-direction_crop(gets.chomp)
-
+direction = direction_crop(gets.chomp)
 
 #create a new instance of the Rover class and pass it the x and y coordinates
-#Rover.new(x, y, direction)
+rover_new = Rover.new(x, y, direction)
+rover_new.read_instructions
+
