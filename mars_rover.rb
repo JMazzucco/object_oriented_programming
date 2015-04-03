@@ -3,25 +3,66 @@ class Rover
 		@x = x
 		@y = y
 		@direction = direction
+		@current_dir = "N"
 	end
 
 	def read_instructions
 		#tell rover to move or turn - delegates to move and turn methods
 		@direction.each do |x|
-			puts "m" if x == "m"
-			puts "l or r" if x == "l" || x =="r"
+
+			move if x == "m"
+
+			if x == "l" || x == "r"
+				@dir = x
+				turn
+			end
 		end
 	end
 
 	def move
 		#when an "m" is passed, this method affects the position of the rover, then updates co-orinates.
-		puts "move method called"
 
+
+		case @current_dir
+				when "N"
+					@y += 1
+				when "E"
+					@x += 1
+				when "S"
+					@y -= 1
+				when "W"
+					@x -= 1
+			end
+ puts @current_dir
+ puts "x:#{@x}, y:#{@y}"
 	end
 
 	def turn
 		#turns rover when a L or R is passed. Checks current position (direction), turns rover once, then updates the direction parameter.
-		puts "turn method called"
+		if @dir == "r"
+			case @current_dir
+				when "N"
+					@current_dir = "E"
+				when "E"
+					@current_dir = "S"
+				when "S"
+					@current_dir = "W"
+				when "W"
+					@current_dir = "N"
+			end
+
+		elsif @dir == "l"
+			case @current_dir
+				when "N"
+					@current_dir = "W"
+				when "W"
+					@current_dir = "S"
+				when "S"
+					@current_dir = "E"
+				when "E"
+					@current_dir = "N"
+			end
+		end
 	end
 end
 
