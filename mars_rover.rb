@@ -1,5 +1,7 @@
 class Rover
-	def initialize(x, y, direction)
+	def initialize(x_limit, y_limit, x, y, direction)
+		@x_limit = x_limit
+		@y_limit = y_limit
 		@x = x
 		@y = y
 		@direction = direction
@@ -16,18 +18,22 @@ class Rover
 				@dir = x
 				turn
 			end
+
 		end
+
+		#display final coorindates and direction
+		puts "#{@x} #{@y} #{@current_dir}"
 	end
 
 	def move
 		#when an "m" is passed, this method affects the position of the rover, then updates co-orinates.
-		if @y > 0 && (@current_dir == "N" || @current_dir == "S")
+		if @y > 0 && @y < @y_limit && (@current_dir == "N" || @current_dir == "S")
 				if @current_dir == "N"
 					@y += 1
 				elsif @current_dir == "S"
 					@y -= 1
 				end
-		elsif @x > 0 && (@current_dir == "W" || @current_dir == "E")
+		elsif @x > 0 && @x < @x_limit && (@current_dir == "W" || @current_dir == "E")
 				if @current_dir == "W"
 					@x -= 1
 				elsif @current_dir == "E"
@@ -68,8 +74,6 @@ class Rover
 
 end
 
-
-
 #remove characters from passed string, then split numbers into an array and convert them to integers
 def coord_crop(coord_str)
 	crop_char = coord_str.gsub(/[A-Za-z]/, " ")
@@ -78,7 +82,7 @@ def coord_crop(coord_str)
 	coord_array = crop_space.split
 	coord_edited = coord_array.collect! {|x| x.to_i }
 
-	#prompt user for coordinates until an array of 2 integers is returned
+#prompt user for coordinates until an array of 2 integers is returned
  	if coord_edited.count != 2
 		puts "Invalid coordinates. Please try again."
 		coord_crop(gets.chomp)
@@ -93,23 +97,39 @@ def direction_crop(direction_str)
 	direction_array.keep_if {|d| d == "r" || d == "l" || d == "m"}
 end
 
+#prompt user to enter plateau limit coorinates, then pass string to the coord_crop method
 puts "type upper-right coordinates of plateau"
 plat_limit = coord_crop(gets.chomp)
 x_limit = plat_limit[0]
 y_limit = plat_limit[1]
 
 #prompt user to enter coordinates, then pass string to the coord_crop method
-puts "type current coordinates for Rover"
+puts "type current coordinates for Rover One"
 coord_final = coord_crop(gets.chomp)
-x = coord_final[0]
-y = coord_final[1]
+x1 = coord_final[0]
+y1 = coord_final[1]
 
 #prompt user for rover
-puts "type instructions for Rover"
-direction = direction_crop(gets.chomp)
+puts "type instructions for Rover One"
+direction1 = direction_crop(gets.chomp)
 
+#prompt user to enter coordinates, then pass string to the coord_crop method
+puts "type current coordinates for Rover Two"
+coord_final = coord_crop(gets.chomp)
+x2 = coord_final[0]
+y2 = coord_final[1]
+
+#prompt user for rover
+puts "type instructions for Rover Two"
+direction2 = direction_crop(gets.chomp)
 
 #create a new instance of the Rover class and pass it the x and y coordinates
-rover_new = Rover.new(x, y, direction)
-rover_new.read_instructions
+rover_new1 = Rover.new(x_limit, y_limit, x1, y1, direction1)
+rover_new1.read_instructions
+
+rover_new2 = Rover.new(x_limit, y_limit, x2, y2, direction2)
+rover_new2.read_instructions
+
+
+
 
