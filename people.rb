@@ -1,26 +1,39 @@
 
-class Student < Parent
+class Parent
 	def initialize(name)
 		@name = name
 	end
+end
+
+
+class Student < Parent
 
 	def learn
-		"I get it"
+		"i get it!"
 	end
+
+	def greeting
+		"Hi, my name is #{@name}"
+	end
+
 end
 
-class Instructor
-	def initialize(name)
-		@name = name
-	end
+class Instructor < Parent
+
 	def teach
-		"everything in Ruby is an object"
+		"Everything in Ruby is an Object"
 	end
+
+	def greeting
+		"Hi, my name is #{@name}"
+	end
+
 end
 
-class Parent
-end
 
 
-test = Student.new
-puts test.learn
+new_inst = Instructor.new("test")
+puts new_inst.greeting
+
+new_student = Student.new("test2")
+puts new_student.greeting
