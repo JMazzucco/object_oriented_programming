@@ -23,18 +23,25 @@ class Rover
 		#when an "m" is passed, this method affects the position of the rover, then updates co-orinates.
 
 
-		case @current_dir
-				when "N"
+		if @y > 0 && (@current_dir == "N" || @current_dir == "S")
+				if @current_dir == "N"
 					@y += 1
-				when "E"
-					@x += 1
-				when "S"
+				elsif @current_dir == "S"
 					@y -= 1
-				when "W"
+				end
+
+		elsif @x > 0 && (@current_dir == "W" || @current_dir == "E")
+				if @current_dir == "W"
 					@x -= 1
-			end
- puts @current_dir
- puts "x:#{@x}, y:#{@y}"
+				elsif @current_dir == "E"
+					@x += 1
+				end
+
+		else
+				puts "The rover is at the edge of the plateau, and it cannot move futher #{@current_dir}"
+		end
+
+		puts "x:#{@x}, y:#{@y}"
 	end
 
 	def turn
@@ -64,6 +71,10 @@ class Rover
 			end
 		end
 	end
+
+	def check_position
+	end
+
 end
 
 
