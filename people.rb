@@ -1,12 +1,12 @@
 
-class Parent
+class Person
 	def initialize(name)
 		@name = name
 	end
 end
 
 
-class Student < Parent
+class Student < Person
 
 	def learn
 		"i get it!"
@@ -18,7 +18,7 @@ class Student < Parent
 
 end
 
-class Instructor < Parent
+class Instructor < Person
 
 	def teach
 		"Everything in Ruby is an Object"
@@ -32,8 +32,11 @@ end
 
 
 
-new_inst = Instructor.new("test")
+new_inst = Instructor.new("Chris")
 puts new_inst.greeting
 
-new_student = Student.new("test2")
+new_student = Student.new("Cristina")
 puts new_student.greeting
+
+puts new_inst.teach
+puts new_student.learn
