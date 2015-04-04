@@ -10,7 +10,7 @@
 shopping_basket = Hash.new
 new_item = gets.chomp
 
-#until new_item == ""
+until new_item == ""
 item_name = new_item.gsub(/[0-9]/, '').gsub('at', '').gsub(/[^a-z]/, '').strip
 item_price = new_item[-5..-1].strip
 item_quant = new_item[0]
@@ -18,9 +18,9 @@ item_quant = new_item[0]
 puts "#{item_quant} #{item_name} : #{item_price}"
 
 
-	#new_item = gets.chomp
+new_item = gets.chomp
 
-#end
+end
 
 
 # basket_two = {
