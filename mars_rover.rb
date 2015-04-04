@@ -17,8 +17,7 @@ class Rover
 			if x == "l" || x == "r"
 				@dir = x
 				turn
-			end
-
+			endrub
 		end
 
 		#display final coorindates and direction
@@ -123,7 +122,7 @@ y2 = coord_final[1]
 puts "type instructions for Rover Two"
 direction2 = direction_crop(gets.chomp)
 
-#create a new instance of the Rover class and pass it the x and y coordinates
+#create new two instances of the Rover class and pass it the x and y coordinates
 rover_new1 = Rover.new(x_limit, y_limit, x1, y1, direction1)
 rover_new1.read_instructions
 
