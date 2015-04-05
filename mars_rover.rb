@@ -9,23 +9,19 @@ class Rover
 	end
 
 	def read_instructions
-		#tell rover to move or turn - delegates to move and turn methods
 		@direction.each do |x|
-
 			move if x == "m"
-
 			if x == "l" || x == "r"
 				@dir = x
 				turn
-			endrub
+			end
 		end
-
 		#display final coorindates and direction
 		puts "#{@x} #{@y} #{@current_dir}"
 	end
 
 	def move
-		#when an "m" is passed, this method affects the position of the rover, then updates co-orinates.
+		#when "m" is passed, change the position of the rover then update co-orinates
 		if @y > 0 && @y < @y_limit && (@current_dir == "N" || @current_dir == "S")
 				if @current_dir == "N"
 					@y += 1
@@ -44,7 +40,7 @@ class Rover
 	end
 
 	def turn
-		#turns rover when a L or R is passed. Checks current position (direction), turns rover once, then updates the direction parameter.
+		#Checks current direction, change rover's direction by 90 degrees, then update current direction
 		if @dir == "r"
 			case @current_dir
 				when "N"
@@ -70,7 +66,6 @@ class Rover
 			end
 		end
 	end
-
 end
 
 #remove characters from passed string, then split numbers into an array and convert them to integers
@@ -81,7 +76,7 @@ def coord_crop(coord_str)
 	coord_array = crop_space.split
 	coord_edited = coord_array.collect! {|x| x.to_i }
 
-#prompt user for coordinates until an array of 2 integers is returned
+#prompt user for coordinates until two numbers are returned
  	if coord_edited.count != 2
 		puts "Invalid coordinates. Please try again."
 		coord_crop(gets.chomp)
@@ -90,7 +85,7 @@ def coord_crop(coord_str)
 	end
 end
 
-#only keep characters in passed string if they are "r", "l" or "m"
+#keep characters in string if they are "r", "l" or "m"
 def direction_crop(direction_str)
 	direction_array = direction_str.downcase.split('')
 	direction_array.keep_if {|d| d == "r" || d == "l" || d == "m"}
@@ -102,23 +97,23 @@ plat_limit = coord_crop(gets.chomp)
 x_limit = plat_limit[0]
 y_limit = plat_limit[1]
 
-#prompt user to enter coordinates, then pass string to the coord_crop method
+#prompt user to enter coordinates for Rover One, then pass string to the coord_crop method
 puts "type current coordinates for Rover One"
 coord_final = coord_crop(gets.chomp)
 x1 = coord_final[0]
 y1 = coord_final[1]
 
-#prompt user for rover
+#prompt user for Rover One instructions
 puts "type instructions for Rover One"
 direction1 = direction_crop(gets.chomp)
 
-#prompt user to enter coordinates, then pass string to the coord_crop method
+#prompt user to enter coordinates for Rover Two, then pass string to the coord_crop method
 puts "type current coordinates for Rover Two"
 coord_final = coord_crop(gets.chomp)
 x2 = coord_final[0]
 y2 = coord_final[1]
 
-#prompt user for rover
+#prompt user for Rover Two
 puts "type instructions for Rover Two"
 direction2 = direction_crop(gets.chomp)
 
@@ -128,7 +123,3 @@ rover_new1.read_instructions
 
 rover_new2 = Rover.new(x_limit, y_limit, x2, y2, direction2)
 rover_new2.read_instructions
-
-
-
-
