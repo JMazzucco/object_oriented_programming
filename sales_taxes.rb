@@ -9,7 +9,7 @@ def round_5(amount)
 		if amount.to_s[-1].to_i > 5
 			return amount.round(1)
 		else
-			return ((amount * 10).to_i.to_f/10) + 0.05
+			return (((amount * 10).to_i) * 10 + 5).to_f/100
 		end
 	end
 	return amount
@@ -34,9 +34,8 @@ end
 
 # shopping_basket.each {|k, v| no_tax_total += v}
 item_tax, item_sales_tax, item_duty_tax, total_tax, item_total, grand_total, tax_rounded = 0, 0, 0, 0, 0, 0, 0
+exclude_tax, duty_tax = false, false
 
-exclude_tax = false
-duty_tax = false
 
 shopping_basket.each do |k, v|
 	k.split(' ').each do |x|
@@ -48,16 +47,19 @@ shopping_basket.each do |k, v|
 	item_duty_tax = (v * 0.05) if duty_tax
 
 	item_tax = (item_sales_tax + item_duty_tax).to_f
- 	puts item_tax
-  puts round_5(item_tax)
+  tax_rounded = round_5(item_tax)
 
+	total_tax += tax_rounded
+	item_total = (tax_rounded + v).round(2)
 
+	grand_total += item_total
+  puts "#{k} : #{item_total}"
 
-	# total_tax += tax_rounded
-	# item_total += (tax_rounded + v)
-	# grand_total += item_total
-	# puts "#{k} : #{item_total}"
+  #reset values for next iteration
+	exclude_tax, duty_tax = false, false
+  item_duty_tax, item_sales_tax = 0, 0
 end
 
-puts "Sales Tax: #{total_tax}"
-puts "Total: #{grand_total}"
+puts "________________"
+puts "Sales Tax: #{total_tax.round(2)}"
+puts "Total: #{grand_total.round(2)}"
